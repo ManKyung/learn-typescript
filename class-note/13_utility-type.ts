@@ -56,14 +56,24 @@ interface User {
   profileUrl: string;
 }
 
-// #1
-interface UserUpdate1 {
+// #1 인터페이스의 키값을 이용해서 Partial 생성
+type UserUpdate1 = {
   id?: User["id"];
   name?: User["name"];
   profileUrl?: User["profileUrl"];
-}
+};
 
-// #2
-interface UserUpdate2 {
-  [(p in "id") | "name" | "profileUrl"]?: User[p];
-}
+// #2 각각의 키값을 in 처리해서 Partial 생성
+type UserUpdate2 = {
+  [p in "id" | "name" | "profileUrl"]?: User[p];
+};
+
+// #3 keyof를 이용하여 Partial를 생성
+type UserUpdate3 = {
+  [p in keyof User]?: User[p];
+};
+
+// #4 제네릭을 이용한 Partial의 구현 모습
+type UserUpdate4<T> = {
+  [p in keyof T]?: T[p];
+};
