@@ -49,3 +49,21 @@ function updateProductDetail(shoppingItem: UpdateProduct) {
   };
   console.log(item);
 }
+
+interface User {
+  id: number;
+  name: string;
+  profileUrl: string;
+}
+
+// #1
+interface UserUpdate1 {
+  id?: User["id"];
+  name?: User["name"];
+  profileUrl?: User["profileUrl"];
+}
+
+// #2
+interface UserUpdate2 {
+  [(p in "id") | "name" | "profileUrl"]?: User[p];
+}
