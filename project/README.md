@@ -13,6 +13,11 @@
    - [x] `tsc` 명령어로 타입스크립트 컴파일 하기
 2. 명시적인 `any` 선언하기
    - `tsconfig.json`파일에 `noImplicitAny` 설정하기
+   - 타입 구체화 작업 진행
+3. 프로젝트 환경 구성
+   - Babel, Eslit, Preitter 환경설정
+4. 외부라이브러리 모듈화
+   -
 
 ## 참고 자료
 
