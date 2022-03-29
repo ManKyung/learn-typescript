@@ -46,6 +46,7 @@ var confirmedTotal = $(".confirmed-total");
 var deathsTotal = $(".deaths");
 var recoveredTotal = $(".recovered");
 var lastUpdatedTime = $(".last-updated-time");
+var lineChart = $("#lineChart");
 var rankList = $(".rank-list");
 var deathsList = $(".deaths-list");
 var recoveredList = $(".recovered-list");
@@ -70,6 +71,12 @@ function fetchCovidSummary() {
     var url = "https://api.covid19api.com/summary";
     return axios.get(url);
 }
+var CovidStatus;
+(function (CovidStatus) {
+    CovidStatus["Confirmed"] = "confirmed";
+    CovidStatus["Recovered"] = "recovered";
+    CovidStatus["Deaths"] = "deaths";
+})(CovidStatus || (CovidStatus = {}));
 function fetchCountryInfo(countryCode, status) {
     // params: confirmed, recovered, deaths
     var url = "https://api.covid19api.com/country/".concat(countryCode, "/status/").concat(status);
@@ -104,13 +111,13 @@ function handleListClick(event) {
                     clearRecoveredList();
                     startLoadingAnimation();
                     isDeathLoading = true;
-                    return [4 /*yield*/, fetchCountryInfo(selectedId, "deaths")];
+                    return [4 /*yield*/, fetchCountryInfo(selectedId, CovidStatus.Deaths)];
                 case 1:
                     deathResponse = (_a.sent()).data;
-                    return [4 /*yield*/, fetchCountryInfo(selectedId, "recovered")];
+                    return [4 /*yield*/, fetchCountryInfo(selectedId, CovidStatus.Recovered)];
                 case 2:
                     recoveredResponse = (_a.sent()).data;
-                    return [4 /*yield*/, fetchCountryInfo(selectedId, "confirmed")];
+                    return [4 /*yield*/, fetchCountryInfo(selectedId, CovidStatus.Confirmed)];
                 case 3:
                     confirmedResponse = (_a.sent()).data;
                     endLoadingAnimation();
@@ -194,7 +201,7 @@ function setupData() {
     });
 }
 function renderChart(data, labels) {
-    var ctx = $("#lineChart").getContext("2d");
+    var ctx = lineChart.getContext("2d");
     Chart.defaults.color = "#f5eaea";
     Chart.defaults.font.family = "Exo 2";
     new Chart(ctx, {
@@ -217,7 +224,9 @@ function setChartData(data) {
     var chartData = data.slice(-14).map(function (value) { return value.Cases; });
     var chartLabel = data
         .slice(-14)
-        .map(function (value) { return new Date(value.Date).toLocaleDateString().slice(5, -1); });
+        .map(function (value) {
+        return new Date(value.Date).toLocaleDateString().slice(5, -1);
+    });
     renderChart(chartData, chartLabel);
 }
 function setTotalConfirmedNumber(data) {
