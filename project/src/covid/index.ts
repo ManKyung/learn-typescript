@@ -29,7 +29,7 @@ export interface CovidSummaryResponse {
   Global: Global;
   Message: string;
 }
-interface Status {
+export interface Status {
   Cases: number;
   City: string;
   CityCode: string;
