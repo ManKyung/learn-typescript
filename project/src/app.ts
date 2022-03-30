@@ -19,8 +19,6 @@ function getUnixTimestamp(date: Date | string | number) {
 
 // DOM
 // let a: Element | HTMLElement | HTMLParagraphElement;
-const div = $('.ddd');
-const temp = $<HTMLParagraphElement>('.abc');
 const confirmedTotal = $('.confirmed-total') as HTMLSpanElement;
 const deathsTotal = $('.deaths') as HTMLParagraphElement;
 const recoveredTotal = $('.recovered') as HTMLParagraphElement;
