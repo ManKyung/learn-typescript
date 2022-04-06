@@ -8,6 +8,9 @@ import {
   Status,
 } from './covid/index';
 
+const a = 0;
+console.log(a);
+
 // utils
 function $<T extends HTMLElement = HTMLDivElement>(selector: string) {
   const element = document.querySelector(selector);
